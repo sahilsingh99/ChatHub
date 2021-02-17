@@ -1,0 +1,151 @@
+body{
+  margin : 0;
+  background-color: white;
+  overflow-y: hidden;
+}
+*{
+  margin: 0px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+li,
+ul {
+	list-style-position: inside;
+}
+
+li{
+  background: #e6eaee;
+	padding: 10px;
+  border: 1px solid #e1e1e1;
+	border-radius: 5px;
+	margin: 10px 10px 10px 0px;
+  font-weight: 600;
+}
+
+ol{
+  padding-inline-start: 0px;
+}
+
+.main{
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+.side-bar{
+  overflow-y: scroll;
+  flex: 18%;
+  background-color: cadetblue;
+  padding-top: .5em;
+  padding-left: 1.1rem;
+}
+
+.chat{
+  flex: 82%;
+  display: flex;
+  flex-direction: column;
+}
+.chat-container{ 
+  flex-grow: 1;
+  overflow-y: scroll;
+}
+
+.form-container{
+  background: #e6eaee;
+	padding: 10px;
+  flex-shrink: 0;
+  display: flex;
+}
+
+.form{
+  flex-grow: 1;
+	display: flex
+}
+
+.form *{
+  margin-right: 10px
+}
+
+.form input{
+  border: none;
+	padding: 10px;
+	flex-grow: 1;
+  outline: none;
+} 
+
+.chat-button {
+	background: cadetblue;
+	cursor: pointer;
+	transition: background .3s ease;
+}
+
+@media (max-width:600px) {
+	* {
+		font-size: 1rem
+	}
+	.side-bar {
+		display: none;
+	}
+	.form {
+		flex-direction: column;
+	}
+	.form-container form {
+		margin-bottom: 10px;
+	}
+	.form-container button {
+		margin-right: 0;
+	}
+}
+
+.centered-form{
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+  background: cadetblue
+}
+
+.centered-form__form{
+  width: 230px;
+  padding: 20px;
+  background: rgba(224, 219, 219, 0.9);
+}
+
+.form-field{
+  margin : 10px 0;
+  width: 100%;
+}
+
+.form-field label{
+  font-weight: 450;
+}
+
+.form-field input{
+  margin: 5px 0px 0px 0px;
+  width: 98%;
+  outline: none;
+  padding: 10px 0px;
+}
+
+.form-field button{
+  width: 100%;
+  padding: 10px 0px;
+}
+
+h3{
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.5rem
+}
+
+button{
+  background: cadetblue;
+	cursor: pointer;
+	transition: background .3s ease;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+.message{
+  padding: 10px 0px 0px 10px;
+}
