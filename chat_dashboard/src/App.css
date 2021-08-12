@@ -65,6 +65,14 @@ ol{
   margin-right: 10px
 }
 
+.file-upload {
+  background: cadetblue;
+	cursor: pointer;
+	transition: background .3s ease;
+  font-weight: 600;
+  font-size: 20px;
+}
+
 .form input{
   border: none;
 	padding: 10px;

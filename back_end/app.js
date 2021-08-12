@@ -1,4 +1,4 @@
-let express = require('express');
+  let express = require('express');
 let env = require('dotenv');
 let http = require('http');
 let socketIO = require('socket.io');
@@ -6,9 +6,12 @@ let {generateMessage, generateLocationMessage} = require('./utils/message');
 let {isRealString} = require('./utils/isRealString');
 let {Users} = require('./utils/users');
 let users = new Users();
+let SocketIOFileUpload = require('socketio-file-upload');
 
 env.config();
-let app = express();
+let app = express()
+         .use(SocketIOFileUpload.router)
+         .use(express.static(__dirname + "/public"));
 
 //handling cors
 app.use((req, res, next) => {
@@ -26,6 +29,16 @@ app.use((req, res, next) => {
     next();
 })
 
+app.get('/api/download/:name', (req, res, next) => {
+    try {
+        const file = `${__dirname}/public/${req.params.name}`;
+        res.download(file);
+        console.log('here');
+      } catch (err) {
+        console.log(err);
+      }
+})
+
 const port = process.env.PORT || 3000;
 var server = http.createServer(app);
 
@@ -40,6 +53,23 @@ const io = socketIO(server, options);
 // setting connection
 io.on('connection',(socket) => {
     console.log('A user is connected!');
+    var uploader = new SocketIOFileUpload();
+    uploader.dir = __dirname + "/public";
+    uploader.listen(socket);
+
+    // Do something when a file is saved:
+    uploader.on("saved", function(event){
+        console.log(event.file);
+        let user = users.getUser(socket.id);
+        if(user && isRealString(event.file.name)) {
+            io.to(user.room).emit("newFileMessage", generateMessage(user.name, event.file.name));
+        }
+    });
+
+    // Error handler:
+    uploader.on("error", function(event){
+        console.log("Error from uploader", event);
+    });
 
     socket.on('join', (params, callback) => {
         if(!isRealString(params.name) || !isRealString(params.room)) {
